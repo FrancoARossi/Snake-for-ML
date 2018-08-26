@@ -7,10 +7,10 @@ screen = pygame.display.set_mode(size)
 random.seed()
 seed = []
 player = snake.Player()
-leftLimit = enviroment.Limits(pygame.image.load("resources/left_right_limit.png"), 0, 0)
-rightLimit = enviroment.Limits(pygame.image.load("resources/left_right_limit.png"), 760, 0)
-upLimit = enviroment.Limits(pygame.image.load("resources/up_down_limit.png"), 0, 0)
-downLimit = enviroment.Limits(pygame.image.load("resources/up_down_limit.png"), 0, 560)
+leftLimit = enviroment.Limits(pygame.image.load("sprites/left_right_limit.png"), 0, 0)
+rightLimit = enviroment.Limits(pygame.image.load("sprites/left_right_limit.png"), 760, 0)
+upLimit = enviroment.Limits(pygame.image.load("sprites/up_down_limit.png"), 0, 0)
+downLimit = enviroment.Limits(pygame.image.load("sprites/up_down_limit.png"), 0, 560)
 
 for i in range(49):
 	seed.append(random.randrange(0,3))

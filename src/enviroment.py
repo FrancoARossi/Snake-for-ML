@@ -2,9 +2,9 @@ import pygame
 pygame.init()
 
 backgroundSprites = [
-	pygame.image.load("resources/background_tile1.png"), 
-	pygame.image.load("resources/background_tile2.png"),
-	pygame.image.load("resources/background_tile3.png"),
+	pygame.image.load("sprites/background_tile1.png"), 
+	pygame.image.load("sprites/background_tile2.png"),
+	pygame.image.load("sprites/background_tile3.png"),
 	]
 
 class Limits(pygame.sprite.Sprite):

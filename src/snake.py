@@ -5,14 +5,14 @@ class Player(pygame.sprite.Sprite):
 	def __init__(self, x = 380, y = 280, speed = 0.50):
 		self.speed = speed
 		self.movement = (0, 0)
-		self.head = pygame.image.load("resources/snake_head.png")
+		self.head = pygame.image.load("sprites/snake_head.png")
 		self.rect = self.head.get_rect()
 		self.rect.x = x
 		self.rect.y = y
 		self.rotatedHead = pygame.transform.rotate(self.head, 0)
 		self.bodyParts = [
-			pygame.image.load("resources/snake_body1.png"),
-			pygame.image.load("resources/snake_body2.png")
+			pygame.image.load("sprites/snake_body1.png"),
+			pygame.image.load("sprites/snake_body2.png")
 		]
 
 	def render(self, canvas):
