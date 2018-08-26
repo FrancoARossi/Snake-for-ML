@@ -1,37 +1,36 @@
-import pygame, random, sys
+import pygame, random, sys # TO DO: Import only the things that I use instead of the complete module
 
-class snake:
-	length = 0
-	x = 350
-	y = 250
-	headPos = (x, y)
-	head = pygame.image.load("resources/snake_head.png")
-	headHitBox = head.get_rect()
-	bodyParts = [
-		pygame.image.load("resources/snake_body1.png"),
-		pygame.image.load("resources/snake_body2.png")
-	]
+class Player:
+	def __init__(self, x = 350, y = 250, speed = 0.45):
+		self.x = x
+		self.y = y
+		self.speed = speed
+		self.movement = (0, 0)
+		self.head = pygame.image.load("resources/snake_head.png")
+		self.headHitBox = self.head.get_rect(center = (self.x, self.y))
+		self.bodyParts = [
+			pygame.image.load("resources/snake_body1.png"),
+			pygame.image.load("resources/snake_body2.png")
+		]
 
 	def render(self, canvas):
-		canvas.blit(self.head, self.headPos)
+		canvas.blit(self.head, self.headHitBox)
 	
-	def move(self): # TERMINAR ESTO
-		pressed = pygame.key.get_pressed()
-		if pressed[pygame.K_UP]:
-			flag = 0
-		if pressed[pygame.K_DOWN]:
-			flag = 1
-		if pressed[pygame.K_RIGHT]:
-			flag = 2
-		if pressed[pygame.K_LEFT]:
-			flag = 3
-		if flag == 0:
-			self.y -= 50
-		if flag == 1:
-			self.y += 50
-		if flag == 2:
-			self.x += 50
-		if flag == 3:
-			self.x -= 50
-		self.headPos = (self.x, self.y)
-		pygame.time.delay(200)
+	def move(self):
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				sys.exit()
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_UP:
+					self.movement = (0, -25*self.speed)
+				if event.key == pygame.K_DOWN:
+					self.movement = (0, 25*self.speed)
+				if event.key == pygame.K_RIGHT:
+					self.movement = (25*self.speed, 0)
+				if event.key == pygame.K_LEFT:
+					self.movement = (-25*self.speed, 0)
+		self.headHitBox = self.headHitBox.move(self.movement)
+		pygame.time.delay(30)
+	
+	def rotate(lastKey, newKey):
+		pass
