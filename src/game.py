@@ -1,33 +1,31 @@
-import pygame, random, snake
+import pygame, random, snake, enviroment
 pygame.init()
-random.seed()
+pygame.display.set_caption("Snake for ML")
 size = 800, 600
+screen = pygame.display.set_mode(size)
+
+random.seed()
+seed = []
 player = snake.Player()
-r = []
+leftLimit = enviroment.Limits(pygame.image.load("resources/left_right_limit.png"), 0, 0)
+rightLimit = enviroment.Limits(pygame.image.load("resources/left_right_limit.png"), 760, 0)
+upLimit = enviroment.Limits(pygame.image.load("resources/up_down_limit.png"), 0, 0)
+downLimit = enviroment.Limits(pygame.image.load("resources/up_down_limit.png"), 0, 560)
 
 for i in range(49):
-	r.append(random.randrange(0,3))
-
-# TO DO?: put generate_background on a separated file
-def generate_background(canvas, tilesArray, r):
-	i = 0
-	for x in range(0, 800, 100):
-		for y in range(0, 600, 100):
-			i += 1
-			canvas.blit(tilesArray[r[i]], (x, y))
-
-screen = pygame.display.set_mode(size)
-backgroundTiles = [
-	pygame.image.load("resources/background_tile1.png").convert(), 
-	pygame.image.load("resources/background_tile2.png").convert(),
-	pygame.image.load("resources/background_tile3.png").convert()
-	]
-
+	seed.append(random.randrange(0,3))
 
 while True:
-	generate_background(screen, backgroundTiles, r)
+	enviroment.render_background(screen, seed)
+	leftLimit.render_limit(screen)
+	rightLimit.render_limit(screen)
+	upLimit.render_limit(screen)
+	downLimit.render_limit(screen)
 
 	player.render(screen)
 	player.move()
+
+	if pygame.sprite.collide_rect(player, leftLimit) or pygame.sprite.collide_rect(player, rightLimit) or pygame.sprite.collide_rect(player, upLimit) or pygame.sprite.collide_rect(player, downLimit):
+		player.reset()
 
 	pygame.display.flip()
