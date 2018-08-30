@@ -10,12 +10,10 @@ backgroundSprites = [
 class Limits(pygame.sprite.Sprite):
 	def __init__(self, limitSprite, x, y):
 		self.limitSprite = limitSprite
-		self.rect = self.limitSprite.get_rect()
-		self.rect.x = x
-		self.rect.y = y
+		self.limitXnY = (x, y)
 
 	def render_limit(self, canvas):
-		canvas.blit(self.limitSprite, self.rect)
+		canvas.blit(self.limitSprite, self.limitXnY)
 
 def render_background(canvas, seed):
 	i = 0

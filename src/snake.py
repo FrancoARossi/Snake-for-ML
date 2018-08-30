@@ -1,4 +1,4 @@
-import pygame, random, sys # TO DO: Import only the things that I use instead of the complete module
+import pygame, random, sys # TO DO: Import only the needed modules
 pygame.init()
 
 class Player(pygame.sprite.Sprite):
@@ -6,17 +6,20 @@ class Player(pygame.sprite.Sprite):
 		self.speed = speed
 		self.movement = (0, 0)
 		self.head = pygame.image.load("sprites/snake_head.png")
-		self.rect = self.head.get_rect()
-		self.rect.x = x
-		self.rect.y = y
 		self.rotatedHead = pygame.transform.rotate(self.head, 0)
-		self.bodyParts = [
+		self.headXnY = (x, y)
+		self.bodySprites = [
 			pygame.image.load("sprites/snake_body1.png"),
 			pygame.image.load("sprites/snake_body2.png")
 		]
+		self.snakeXnY = [self.headXnY]
+		self.i = 0
+
 
 	def render(self, canvas):
-		canvas.blit(self.rotatedHead, self.rect)
+		canvas.blit(self.rotatedHead, self.snakeXnY[0])
+		#for self.i in range(len(self.snakeXnY)):
+		#	canvas.blit(self.bodySprites[random.randrange(0,2)], self.snakeXnY[self.i])
 	
 	def move(self):
 		for event in pygame.event.get():
@@ -35,8 +38,8 @@ class Player(pygame.sprite.Sprite):
 				if event.key == pygame.K_LEFT:
 					self.movement = (-10*self.speed, 0)
 					self.rotatedHead = pygame.transform.rotate(self.head, 180)
-		self.rect = self.rect.move(self.movement)
+		self.snakeXnY[0] = (int(self.snakeXnY[0][0] + self.movement[0]), int(self.snakeXnY[0][1] + self.movement[1]))
 	
 	def reset(self):
-		self.rect.x = 380
-		self.rect.y = 280
+		self.snakeXnY = [self.headXnY]
+		self.snakeXnY[0] = (380, 280)
